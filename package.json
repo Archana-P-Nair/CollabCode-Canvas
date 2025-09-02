@@ -1,19 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabGlow2 - Deployment Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .issue-list {
+            list-style-type: none;
+        }
+        
+        .issue-list li {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .critical {
+            background-color: #ff4757;
+        }
+        
+        .warning {
+            background-color: #ffa502;
+        }
+        
+        .resolved {
+            background-color: #2ed573;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #fff;
+            color: #667eea;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .deploy-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            color: #667eea;
+            border-radius: 50%;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CollabGlow2 Deployment Analysis</h1>
+            <p class="subtitle">Diagnosing Vercel deployment issues for your repository</p>
+        </header>
+        
+        <div class="card">
+            <h2>Potential Deployment Issues</h2>
+            <ul class="issue-list">
+                <li><span class="status critical"></span> Missing package.json file</li>
+                <li><span class="status critical"></span> No build script defined</li>
+                <li><span class="status warning"></span> Incorrect file paths in HTML</li>
+                <li><span class="status warning"></span> Missing vercel.json configuration</li>
+                <li><span class="status resolved"></span> Simple HTML structure (not an issue)</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>Solution</h2>
+            <p>Add a package.json file to your repository with the following content:</p>
+            
+            <div class="code-block">
 {
-  "name": "code-editor-project",
+  "name": "collabglow2",
   "version": "1.0.0",
+  "description": "A collaborative project",
   "scripts": {
-    "dev:backend": "cd backend && npm run dev",
-    "dev:frontend": "cd frontend && npm run dev",
-    "build:backend": "cd backend && npm run build",
-    "build:frontend": "cd frontend && npm run build",
-    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
-    "start": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+    "build": "echo 'No build process needed'"
   },
-  "devDependencies": {
-    "concurrently": "^7.6.0"
-  },
-  "dependencies": {
-    "@excalidraw/excalidraw": "^0.18.0",
-    "all": "^0.0.0"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
+            </div>
+            
+            <p>For more complex projects, you might need a vercel.json file:</p>
+            
+            <div class="code-block">
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
+            </div>
+            
+            <a href="https://vercel.com/docs/configuration" class="btn" target="_blank">Vercel Documentation</a>
+        </div>
+        
+        <h2>Deployment Steps</h2>
+        <div class="deploy-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Add Configuration Files</h3>
+                <p>Add package.json and vercel.json to your repository</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Connect to Vercel</h3>
+                <p>Import your GitHub repository in Vercel</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Deploy</h3>
+                <p>Let Vercel automatically deploy your project</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>This is a diagnostic page. Add the necessary configuration files to your repository for successful deployment.</p>
+    </footer>
+</body>
+</html>
