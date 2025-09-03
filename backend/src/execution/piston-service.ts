@@ -7,10 +7,11 @@ export const executeCode = async (code: string, language: string, stdin: string)
   memory: string;
 }> => {
   try {
+    const fileExtension = getFileExtension(language);
     const response = await axios.post('https://emkc.org/api/v2/piston/execute', {
       language,
-      version: getLanguageVersion(language), // Add version based on language
-      source: code,
+      version: getLanguageVersion(language),
+      files: [{ name: `main.${fileExtension}`, content: code }],
       stdin
     }, {
       headers: { 'Content-Type': 'application/json' }
@@ -43,5 +44,16 @@ function getLanguageVersion(language: string): string {
     java: '17',
     c: '11'
   };
-  return versions[language] || 'latest'; // Default to 'latest' if unsupported
+  return versions[language] || 'latest';
+}
+
+// Helper function to map languages to file extensions
+function getFileExtension(language: string): string {
+  const extensions: { [key: string]: string } = {
+    python: 'py',
+    cpp: 'cpp',
+    java: 'java',
+    c: 'c'
+  };
+  return extensions[language] || 'txt';
 }
