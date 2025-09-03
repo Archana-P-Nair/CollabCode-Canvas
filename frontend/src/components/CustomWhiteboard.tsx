@@ -2,7 +2,6 @@
 
 import { useRef, useEffect, useState, useCallback } from 'react';
 
-
 interface Point {
   x: number;
   y: number;
@@ -24,7 +23,6 @@ export const CustomWhiteboard = () => {
   const [historyStep, setHistoryStep] = useState(-1);
   const [savedImageData, setSavedImageData] = useState<ImageData | null>(null);
   const [coordinates, setCoordinates] = useState('Position: (0, 0)');
-  
 
   const ctx = useRef<CanvasRenderingContext2D | null>(null);
 
@@ -40,7 +38,7 @@ export const CustomWhiteboard = () => {
       const rect = container.getBoundingClientRect();
       canvas.width = rect.width;
       canvas.height = rect.height;
-      
+
       // Redraw current state after resize
       if (historyStep >= 0 && history[historyStep]) {
         const img = new Image();
@@ -160,7 +158,7 @@ export const CustomWhiteboard = () => {
 
     const pos = getMousePos(e);
     updateCoordinates(e);
-    
+
     ctx.current.lineWidth = currentSize;
     ctx.current.strokeStyle = currentTool === 'eraser' ? '#FFFFFF' : currentColor;
     ctx.current.globalCompositeOperation = currentTool === 'eraser' ? 'destination-out' : 'source-over';
@@ -171,21 +169,21 @@ export const CustomWhiteboard = () => {
         ctx.current.lineTo(pos.x, pos.y);
         ctx.current.stroke();
         break;
-        
+
       case 'rectangle':
         if (savedImageData) {
           ctx.current.putImageData(savedImageData, 0, 0);
           drawRectangle(startPos.x, startPos.y, pos.x - startPos.x, pos.y - startPos.y);
         }
         break;
-        
+
       case 'circle':
         if (savedImageData) {
           ctx.current.putImageData(savedImageData, 0, 0);
           drawCircle(startPos.x, startPos.y, pos.x, pos.y);
         }
         break;
-        
+
       case 'line':
         if (savedImageData) {
           ctx.current.putImageData(savedImageData, 0, 0);
@@ -250,7 +248,7 @@ export const CustomWhiteboard = () => {
   const getCanvasData = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
-    
+
     return {
       dataURL: canvas.toDataURL(),
       width: canvas.width,
@@ -268,7 +266,7 @@ export const CustomWhiteboard = () => {
       {/* Header */}
       <div className="p-3 bg-gray-100 border-b border-gray-300 flex items-center justify-between flex-wrap gap-2">
         <div className="text-sm font-medium text-gray-700">🎨 Custom Whiteboard</div>
-        
+
         <div className="flex items-center gap-2 flex-wrap">
           {/* Tools */}
           <div className="flex gap-1 bg-white p-1 rounded">
@@ -277,8 +275,8 @@ export const CustomWhiteboard = () => {
                 key={tool}
                 onClick={() => setCurrentTool(tool)}
                 className={`p-2 rounded text-sm ${
-                  currentTool === tool 
-                    ? 'bg-blue-500 text-white' 
+                  currentTool === tool
+                    ? 'bg-blue-500 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100'
                 }`}
                 title={tool.charAt(0).toUpperCase() + tool.slice(1)}
@@ -361,12 +359,8 @@ export const CustomWhiteboard = () => {
         <div>{coordinates}</div>
         <div className="flex gap-4">
           <span>Ready to draw • Press and drag to start</span>
-          )}
         </div>
       </div>
     </div>
   );
-
 };
-
-
