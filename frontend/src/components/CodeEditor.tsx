@@ -158,10 +158,10 @@ export const CodeEditor = () => {
           {isRunning ? <Loader2 className="animate-spin w-4 h-4" /> : <Play className="w-4 h-4" />}
           Run
         </button>
-        
-        <ShareButton 
-          code={code} 
-          language={language} 
+
+        <ShareButton
+          code={code}
+          language={language}
           onShare={(url) => setShareUrl(url)}
         />
 
@@ -219,5 +219,4 @@ export const CodeEditor = () => {
       </div>
     </div>
   );
-
 };
