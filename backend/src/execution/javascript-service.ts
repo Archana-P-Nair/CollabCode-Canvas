@@ -1,57 +1,34 @@
 import { VM } from 'vm2';
 
-interface ExecutionResult {
+export const executeJavaScript = (code: string, stdin: string): {
   output: string;
   status: string;
   time: string;
   memory: string;
-}
-
-export const executeJavaScript = (code: string, stdin: string = ''): ExecutionResult => {
+} => {
+  const vm = new VM({
+    timeout: 1000,
+    sandbox: { stdin }
+  });
+  const startTime = performance.now();
   try {
-    const vm = new VM({
-      timeout: 5000,
-      sandbox: {
-        console: {
-          log: (...args: any[]) => {
-            return args.map(arg => 
-              typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
-            ).join(' ');
-          }
-        }
-      }
-    });
-
-    const output = vm.run(`
-      (function() {
-        let __output = [];
-        const originalConsoleLog = console.log;
-        console.log = function(...args) {
-          __output.push(args.join(' '));
-        };
-        
-        try {
-          ${code}
-        } catch (error) {
-          __output.push('Error: ' + error.message);
-        }
-        
-        return __output.join('\\n');
-      })()
-    `);
-
-    return { 
-      output: output || 'No output', 
-      status: 'Success', 
-      time: '0.00s', 
-      memory: '0KB' 
+    const output = vm.run(code);
+    const endTime = performance.now();
+    const executionTime = (endTime - startTime).toFixed(2);
+    return {
+      output: output ? output.toString() : 'No output',
+      status: 'Success',
+      time: `${executionTime}ms`,
+      memory: '1KB' 
     };
   } catch (error) {
-    return { 
-      output: `Error: ${error instanceof Error ? error.message : String(error)}`, 
-      status: 'Runtime Error',
-      time: '0.00s',
-      memory: '0KB'
+    const endTime = performance.now();
+    const executionTime = (endTime - startTime).toFixed(2);
+    return {
+      output: error.message,
+      status: 'Error',
+      time: `${executionTime}ms`,
+      memory: '1KB'
     };
   }
 };
