@@ -40,9 +40,9 @@ export const executeCode = async (code: string, language: string, stdin: string)
 function getLanguageVersion(language: string): string {
   const versions: { [key: string]: string } = {
     python: '3.10',
-    cpp: '14',
-    java: '17',
-    c: '11'
+    cpp: '10.2.0',
+    java: '15.0.2',
+    c: '10.2.0'
   };
   return versions[language] || 'latest';
 }
@@ -57,3 +57,4 @@ function getFileExtension(language: string): string {
   };
   return extensions[language] || 'txt';
 }
+
