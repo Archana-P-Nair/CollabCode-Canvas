@@ -6,22 +6,30 @@ export const executeJavaScript = (code: string, stdin: string): {
   time: string;
   memory: string;
 } => {
+  let consoleOutput = '';
   const vm = new VM({
     timeout: 1000,
-    sandbox: { stdin }
+    sandbox: {
+      stdin,
+      console: {
+        log: (...args: any[]) => {
+          consoleOutput += args.map(arg => (typeof arg === 'object' ? JSON.stringify(arg) : arg)).join(' ') + '\n';
+        }
+      }
+    }
   });
   const startTime = performance.now();
   try {
-    const output = vm.run(code);
+    vm.run(code);
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(2);
     return {
-      output: output ? output.toString() : 'No output',
+      output: consoleOutput || 'No output',
       status: 'Success',
       time: `${executionTime}ms`,
-      memory: '1KB' // vm2 doesn't provide memory; use a placeholder
+      memory: '1KB'
     };
-  } catch (error: any) { // Assert error as any
+  } catch (error: any) {
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(2);
     return {
