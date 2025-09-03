@@ -21,7 +21,7 @@ export const executeJavaScript = (code: string, stdin: string): {
       time: `${executionTime}ms`,
       memory: '1KB' // vm2 doesn't provide memory; use a placeholder
     };
-  } catch (error) {
+  } catch (error: any) { // Assert error as any
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(2);
     return {
