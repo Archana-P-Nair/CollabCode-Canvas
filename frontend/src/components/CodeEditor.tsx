@@ -12,7 +12,7 @@ interface ExecutionResult {
   memory: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://collab-glow2.vercel.app/';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://collab-glow2.vercel.app';
 
 const defaultCode: { [key: string]: string } = {
   python: `# Welcome to CollabCode Canvas!
@@ -115,7 +115,9 @@ export const CodeEditor = () => {
       }
 
       const data = await response.json();
+      console.log('API Response:', data); // Debug log
       setResult(data);
+      console.log('Result State:', result); // Debug state update
     } catch (error) {
       setResult({
         output: `Connection error: ${error}`,
