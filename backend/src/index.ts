@@ -9,7 +9,11 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://collab-glow2-yliy.vercel.app/', // Match your frontend URL
+  optionsSuccessStatus: 200 // Ensure preflight succeeds
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.post('/api/execute', executionLimiter, async (req, res) => {
