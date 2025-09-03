@@ -9,6 +9,7 @@ export const executeCode = async (code: string, language: string, stdin: string)
   try {
     const response = await axios.post('https://emkc.org/api/v2/piston/execute', {
       language,
+      version: getLanguageVersion(language), // Add version based on language
       source: code,
       stdin
     }, {
@@ -21,9 +22,9 @@ export const executeCode = async (code: string, language: string, stdin: string)
       output: finalOutput,
       status: exitCode === 0 ? 'Success' : 'Error',
       time: `${time || 0}ms`,
-      memory: '1KB' // Piston doesn't provide memory; use a placeholder
+      memory: '1KB' // Placeholder; Piston doesn't provide memory
     };
-  } catch (error: any) { // Assert error as any for now
+  } catch (error: any) {
     const errorMessage = error.response?.data?.message || error.message || 'Unknown error';
     return {
       output: errorMessage,
@@ -33,3 +34,14 @@ export const executeCode = async (code: string, language: string, stdin: string)
     };
   }
 };
+
+// Helper function to map languages to versions
+function getLanguageVersion(language: string): string {
+  const versions: { [key: string]: string } = {
+    python: '3.10',
+    cpp: '14',
+    java: '17',
+    c: '11'
+  };
+  return versions[language] || 'latest'; // Default to 'latest' if unsupported
+}
