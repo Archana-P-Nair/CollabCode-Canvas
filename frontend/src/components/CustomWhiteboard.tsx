@@ -313,13 +313,6 @@ export const CustomWhiteboard = () => {
             <span className="text-sm text-gray-600 w-6">{currentSize}px</span>
           </div>
 
-          {/* Share Button */}
-          <ShareButton 
-            drawingData={getCanvasData()}
-            onShare={(url) => 
-              console.log('Share URL:', url)}
-          />
-
           {/* Actions */}
           <div className="flex gap-1">
             <button
@@ -379,3 +372,4 @@ export const CustomWhiteboard = () => {
   );
 
 };
+
