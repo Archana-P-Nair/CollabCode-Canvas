@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { ShareButton } from './ShareButton';
+
 
 interface Point {
   x: number;
@@ -24,7 +24,7 @@ export const CustomWhiteboard = () => {
   const [historyStep, setHistoryStep] = useState(-1);
   const [savedImageData, setSavedImageData] = useState<ImageData | null>(null);
   const [coordinates, setCoordinates] = useState('Position: (0, 0)');
-  const [shareUrl, setShareUrl] = useState('');
+  
 
   const ctx = useRef<CanvasRenderingContext2D | null>(null);
 
@@ -377,4 +377,5 @@ export const CustomWhiteboard = () => {
       </div>
     </div>
   );
+
 };
