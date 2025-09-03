@@ -21,11 +21,12 @@ export const executeCode = async (code: string, language: string, stdin: string)
       output: finalOutput,
       status: exitCode === 0 ? 'Success' : 'Error',
       time: `${time || 0}ms`,
-      memory: '1KB' 
+      memory: '1KB' // Piston doesn't provide memory; use a placeholder
     };
-  } catch (error) {
+  } catch (error: any) { // Assert error as any for now
+    const errorMessage = error.response?.data?.message || error.message || 'Unknown error';
     return {
-      output: error.response?.data?.message || error.message,
+      output: errorMessage,
       status: 'Error',
       time: '0.01s',
       memory: '1KB'
