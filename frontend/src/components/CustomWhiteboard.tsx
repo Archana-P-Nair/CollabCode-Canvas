@@ -361,10 +361,6 @@ export const CustomWhiteboard = () => {
         <div>{coordinates}</div>
         <div className="flex gap-4">
           <span>Ready to draw • Press and drag to start</span>
-          {shareUrl && (
-            <span className="text-blue-600">
-              Shared: <a href={shareUrl} className="underline" target="_blank" rel="noopener noreferrer">View</a>
-            </span>
           )}
         </div>
       </div>
@@ -372,4 +368,5 @@ export const CustomWhiteboard = () => {
   );
 
 };
+
 
