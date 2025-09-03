@@ -12,7 +12,7 @@ interface ExecutionResult {
   memory: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://collab-glow2.vercel.app/';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://collab-glow2.vercel.app';
 
 const defaultCode: { [key: string]: string } = {
   python: `# Welcome to CollabCode Canvas!
@@ -222,4 +222,5 @@ export const CodeEditor = () => {
     </div>
   );
 };
+
 
