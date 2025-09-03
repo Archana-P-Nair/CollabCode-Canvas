@@ -19,7 +19,7 @@ export const executeJavaScript = (code: string, stdin: string): {
       output: output ? output.toString() : 'No output',
       status: 'Success',
       time: `${executionTime}ms`,
-      memory: '1KB' 
+      memory: '1KB' // vm2 doesn't provide memory; use a placeholder
     };
   } catch (error) {
     const endTime = performance.now();
