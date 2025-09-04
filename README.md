@@ -79,10 +79,7 @@ Check out the live application here: ➡️ https://collab-glow2-yliy.vercel.app
 **Archana Prasad Nair**
 - LinkedIn: [Archana Prasad Nair](https://www.linkedin.com/in/archana-prasad-nair/) 🤝
 
+⭐️ **If you found this project helpful, don't forget to give it a star!** ⭐️
+---
 https://github.com/user-attachments/assets/b963b16a-eb59-4dd9-a5ef-1c34b837bf59
 
-
-
----
-
-⭐️ **If you found this project helpful, don't forget to give it a star!** ⭐️
